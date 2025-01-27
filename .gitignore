@@ -24,3 +24,6 @@ build
 !.yarn/versions
 
 .medusa
+
+# ignore folder with binded Docker folders
+.data
