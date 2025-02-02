@@ -8,8 +8,8 @@ export interface ProductIndexDocument {
     category_id: string[];
     variant_sku: string[];
     variant_title: string[];
-    option_supplier?: string;
-    option_color?: string[];
-    option_base_color?: string[];
-    option_size?: string[];
+    supplier?: string;
+    color?: string[];
+    base_color?: string[];
+    size?: string[];
 }

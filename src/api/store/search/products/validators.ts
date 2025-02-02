@@ -2,26 +2,22 @@ import z from "zod";
 
 export const SearchProductsQueryParamsSchema = z.object({
     q: z.string().optional(),
-    filter: z
-        .object({
-            supplier: z
-                .string()
-                .optional()
-                .transform((s) => s?.split(",")),
-            color: z
-                .string()
-                .optional()
-                .transform((s) => s?.split(",")),
-            base_color: z
-                .string()
-                .optional()
-                .transform((s) => s?.split(",")),
-            size: z
-                .string()
-                .optional()
-                .transform((s) => s?.split(",")),
-        })
-        .optional(),
+    supplier: z
+        .string()
+        .optional()
+        .transform((s) => s?.split(",")),
+    color: z
+        .string()
+        .optional()
+        .transform((s) => s?.split(",")),
+    base_color: z
+        .string()
+        .optional()
+        .transform((s) => s?.split(",")),
+    size: z
+        .string()
+        .optional()
+        .transform((s) => s?.split(",")),
     category_id: z.string().optional(),
     limit: z.coerce.number().optional().default(100),
     offset: z.coerce.number().optional().default(0),

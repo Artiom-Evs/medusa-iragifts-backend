@@ -13,11 +13,11 @@ export function transformProduct(p: ProductDTO): ProductIndexDocument {
         category_id: p.categories?.map((c) => c.id) ?? [],
         variant_sku: getUnique(p.variants, (v) => v.sku ?? ""),
         variant_title: getUnique(p.variants, (v) => v.title),
-        option_supplier: (p.metadata?.supplier as string) ?? "",
+        supplier: (p.metadata?.supplier as string) ?? "",
     };
 
     const options = p.options.reduce((opts, opt) => {
-        opts[`option_${opt.title}`] = getUnique(opt.values, (v) => v.value) as string[];
+        opts[`${opt.title}`] = getUnique(opt.values, (v) => v.value) as string[];
         return opts;
     }, {} as Record<string, string[]>);
 

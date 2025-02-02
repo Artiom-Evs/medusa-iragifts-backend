@@ -12,6 +12,7 @@ import {
 import { HttpTypes } from "@medusajs/framework/types";
 import { MEILISEARCH_MODULE, MeiliSearchService } from "src/modules/meilisearch";
 import { SearchProductsQueryParams } from "./validators";
+import { buildSearchProductsFilter } from "./utils";
 
 export const GET = async (
     req: RequestWithContext<HttpTypes.StoreProductListParams>,
@@ -21,18 +22,12 @@ export const GET = async (
     const searchService = req.scope.resolve<MeiliSearchService>(MEILISEARCH_MODULE);
     const productsIndex = searchService.getIndex("products");
 
-    const { q, filter, category_id, limit, offset } =
+    const { q, color, base_color, size, category_id, limit, offset } =
         req.validatedQuery as SearchProductsQueryParams;
 
-    const mFilter = Object.entries(filter ?? {}).reduce((filter, [key, values]) => {
-        filter.push(values.map((v) => `option_${key} = "${v}"`).join(" OR "));
-        return filter;
-    }, [] as string[]);
-
-    if (category_id) mFilter.push(`category_id = "${category_id}"`);
-
+    const filter = buildSearchProductsFilter({ category_id, color, base_color, size });
     const { hits, ...metadata } = await productsIndex.search<{ id: string }>(q, {
-        filter: mFilter,
+        filter,
         limit,
         offset,
         attributesToRetrieve: ["id"],
