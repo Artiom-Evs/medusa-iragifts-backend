@@ -10,6 +10,7 @@ export function transformProduct(p: ProductDTO): ProductIndexDocument {
         title: p.title,
         description: p.description ?? "",
         thumbnail: p.thumbnail ?? "",
+        category_id: p.categories?.map((c) => c.id) ?? [],
         variant_sku: getUnique(p.variants, (v) => v.sku ?? ""),
         variant_title: getUnique(p.variants, (v) => v.title),
         option_supplier: (p.metadata?.supplier as string) ?? "",

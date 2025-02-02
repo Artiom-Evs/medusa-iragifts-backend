@@ -22,8 +22,9 @@ export const SearchProductsQueryParamsSchema = z.object({
                 .transform((s) => s?.split(",")),
         })
         .optional(),
-    limit: z.coerce.number().optional(),
-    offset: z.coerce.number().optional(),
+    category_id: z.string().optional(),
+    limit: z.coerce.number().optional().default(100),
+    offset: z.coerce.number().optional().default(0),
     region_id: z.string().optional(),
     country_code: z.string().optional(),
     province: z.string().optional(),

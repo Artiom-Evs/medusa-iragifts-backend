@@ -5,6 +5,7 @@ export interface ProductIndexDocument {
     title: string;
     description: string;
     thumbnail: string;
+    category_id: string[];
     variant_sku: string[];
     variant_title: string[];
     option_supplier?: string;

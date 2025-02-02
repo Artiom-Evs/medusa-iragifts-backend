@@ -63,7 +63,7 @@ module.exports = defineConfig({
                                 "option_size",
                             ],
                             filterableAttributes: [
-                                "external_id",
+                                "category_id",
                                 "option_supplier",
                                 "option_color",
                                 "option_base_color",
@@ -76,6 +76,7 @@ module.exports = defineConfig({
                                 "title",
                                 "description",
                                 "thumbnail",
+                                "category_id",
                                 "variant_sku",
                                 "variant_title",
                                 "option_supplier",
