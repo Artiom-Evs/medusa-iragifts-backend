@@ -1,7 +1,7 @@
 services:
     postgres:
         image: postgres:15
-        container_name: ewagifts-postgres
+        container_name: iragifts-postgres
         restart: unless-stopped
         environment:
             POSTGRES_PASSWORD: password
@@ -12,7 +12,7 @@ services:
 
     redis:
         image: redis/redis-stack:latest
-        container_name: ewagifts-redis
+        container_name: iragifts-redis
         restart: unless-stopped
         ports:
             - 6379:6379
@@ -22,7 +22,7 @@ services:
 
     meilisearch:
         image: getmeili/meilisearch:v1.12.7
-        container_name: ewagifts-meilisearch
+        container_name: iragifts-meilisearch
         restart: unless-stopped
         ports:
             - 7700:7700
@@ -33,7 +33,7 @@ services:
 
     pgadmin:
         image: dpage/pgadmin4
-        container_name: ewagifts-pgadmin
+        container_name: iragifts-pgadmin
         restart: unless-stopped
         environment:
             PGADMIN_DEFAULT_EMAIL: admin@example.com
@@ -47,7 +47,7 @@ services:
 
     adminer:
         image: adminer
-        container_name: ewagifts-adminer
+        container_name: iragifts-adminer
         restart: unless-stopped
         ports:
             - 8081:8080
@@ -57,7 +57,7 @@ services:
             - postgres
 
     store:
-        container_name: ewagifts-store
+        container_name: iragifts-store
         build:
             context: .
             dockerfile: Dockerfile

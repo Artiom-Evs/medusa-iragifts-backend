@@ -1,5 +1,5 @@
 {
-    "name": "medusa-ewagifts-backend",
+    "name": "medusa-iragifts-backend",
     "version": "0.0.1",
     "description": "A starter for Medusa projects.",
     "author": "Medusa (https://medusajs.com)",
@@ -15,7 +15,6 @@
     "scripts": {
         "build": "medusa build",
         "seed": "medusa exec ./src/scripts/seed.ts",
-        "migrate": "medusa db:migrate --skip-scripts && medusa db:migrate",
         "start": "medusa start",
         "dev": "medusa develop",
         "test:integration:http": "TEST_TYPE=integration:http NODE_OPTIONS=--experimental-vm-modules jest --silent=false --runInBand --forceExit",
