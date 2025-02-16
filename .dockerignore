@@ -1,0 +1,10 @@
+.git
+.gitignore
+
+.data
+.medusa
+.vscode
+integration-tests
+node_modules
+
+.env*
