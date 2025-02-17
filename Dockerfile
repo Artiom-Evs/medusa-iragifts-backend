@@ -10,4 +10,7 @@ RUN yarn install
 COPY . .
 RUN yarn build
 
+# quick fix the bug with starting production build  in Medusa.JS v2.4
+RUN ln -s .medusa/server/public/ public
+
 CMD ["yarn", "start"]
