@@ -46,6 +46,31 @@ module.exports = defineConfig({
             },
         },
         {
+            resolve: "@medusajs/medusa/locking",
+            key: Modules.LOCKING,
+            options: {
+                providers: [
+                    {
+                        resolve: "@medusajs/medusa/locking-redis",
+                        id: "lp_redis",
+                        is_default: true,
+                        options: {
+                            redisUrl: process.env.REDIS_URL,
+                        },
+                    },
+                    {
+                        resolve: "@medusajs/medusa/auth-google",
+                        id: "google",
+                        options: {
+                            clientId: process.env.GOOGLE_CLIENT_ID,
+                            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+                            callbackUrl: process.env.GOOGLE_CALLBACK_URL,
+                        },
+                    },
+                ],
+            },
+        },
+        {
             resolve: join(__dirname, "src/modules/meilisearch"),
             dependencies: [Modules.PRODUCT],
             options: {
