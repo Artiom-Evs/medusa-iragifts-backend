@@ -56,7 +56,7 @@ services:
         depends_on:
             - postgres
 
-    store:
+    medusa:
         container_name: iragifts-store
         build:
             context: .

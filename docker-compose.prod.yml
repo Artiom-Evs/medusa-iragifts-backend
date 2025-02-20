@@ -1,0 +1,111 @@
+networks:
+    nginx-network:
+        external: true
+    app-network:
+        driver: bridge
+
+services:
+    postgres:
+        image: postgres:15
+        container_name: iragifts-postgres
+        restart: unless-stopped
+        env_file:
+            - ./.env.docker
+        expose:
+            - 5432
+        volumes:
+            - ./.data/postgres:/var/lib/postgresql/data
+        networks:
+            - app-network
+
+    redis:
+        image: redis/redis-stack:latest
+        container_name: iragifts-redis
+        restart: unless-stopped
+        expose:
+            - 6379
+            - 8001
+        volumes:
+            - ./.data/redis:/data
+        networks:
+            - app-network
+
+    meilisearch:
+        image: getmeili/meilisearch:v1.12.7
+        container_name: iragifts-meilisearch
+        env_file:
+            - ./.env.docker
+        restart: unless-stopped
+        expose:
+            - 7700
+        volumes:
+            - ./.data/meili_data:/meili_data
+        networks:
+            - app-network
+
+    pgadmin:
+        image: dpage/pgadmin4
+        container_name: iragifts-pgadmin
+        restart: unless-stopped
+        env_file:
+            - ./.env.docker
+        expose:
+            - 80
+        ports:
+            - 8082:80
+        volumes:
+            - ./.data/pg_admin:/var/lib/pgadmin
+        depends_on:
+            - postgres
+        networks:
+            - app-network
+
+    adminer:
+        image: adminer
+        container_name: iragifts-adminer
+        restart: unless-stopped
+        expose:
+            - 8080
+        ports:
+            - 8083:8080
+        depends_on:
+            - postgres
+        networks:
+            - app-network
+
+    medusa-worker:
+        container_name: iragifts-medusa-worker
+        build:
+            context: .
+            dockerfile: Dockerfile
+        restart: unless-stopped
+        env_file:
+            - .env.docker
+        environment:
+            SERVER_MODE: worker
+        depends_on:
+            - postgres
+            - redis
+            - meilisearch
+        networks:
+            - app-network
+
+    medusa-server:
+        container_name: iragifts-medusa-server
+        build:
+            context: .
+            dockerfile: Dockerfile
+        restart: unless-stopped
+        expose:
+            - 9000
+        env_file:
+            - .env.docker
+        environment:
+            SERVER_MODE: server
+        depends_on:
+            - postgres
+            - redis
+            - meilisearch
+        networks:
+            - app-network
+            - nginx-network

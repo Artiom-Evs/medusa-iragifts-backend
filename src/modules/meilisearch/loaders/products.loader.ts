@@ -9,6 +9,10 @@ export async function productsLoader({
     options,
     logger,
 }: LoaderOptions<MeilisearchModuleOptions>): Promise<void> {
+    if (process.env.WORKER_MODE === "server") {
+        logger?.info("Skip loading products into cache (server mode enabled).");
+        return;
+    }
     logger?.info("Start importing products to Meilisearch index.");
 
     if (!options) {
